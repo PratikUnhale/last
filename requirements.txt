@@ -1,0 +1,29 @@
+login:- username password validation
+Field Worker:-
+Form:-
+Fields based on meter type and option to have multiple meters
+Reading:-
+Image, Readings in Number 
+
+Admin:-
+
+User CRUD: -
+FieldWorker: Name, email , assign customers
+
+Customer Crud:-
+Customer: - Name , Address, Assign Meter- From backend;
+
+Meter:- 
+
+Create Meter: - Type, Rate/Unit, No of Required Readings, Fault Tolerance
+Get Meter:- Meter Id,  And all other Fields
+
+Devices:-
+
+id. type, status
+
+
+
+
+
+

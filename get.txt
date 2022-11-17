@@ -1,0 +1,123 @@
+get users
+{
+    "data": [
+        {
+            "id": 2,
+            "name": "pranjali",
+            "username": "pranjali",
+            "password": "$2a$10$KRX25ZXQCbs94sWLN.KcXOj2WLaqxZ3wCb.eXzW6bZ20lFP8KO5zq",
+            "email": "pranjali@gmail.com",
+            "roleid": 2,
+            "status": "active",
+            "createdAt": "2022-11-08T05:42:46.417Z",
+            "updatedAt": "2022-11-08T05:42:46.417Z"
+        },
+        {
+            "id": 4,
+            "name": "neha",
+            "username": "neha",
+            "password": "$2a$10$/wCzeAecKuhFs5aF6cmREOvKXWtLEKHcJWAqhR6yWiq3wbQ8tKQYa",
+            "email": "neha@gmail.com",
+            "roleid": 2,
+            "status": "active",
+            "createdAt": "2022-11-08T08:19:41.446Z",
+            "updatedAt": "2022-11-08T08:19:41.446Z"
+        }
+    ],
+    "error": null
+}
+
+get meter
+
+    "data": [
+        {
+            "id": 1,
+            "type": "solar",
+            "noOfReadings": 5,
+            "faultTolerance": 5,
+            "perUnitRate": 3,
+            "isDeleted": false,
+            "createdAt": "2022-11-08T12:30:45.280Z",
+            "updatedAt": "2022-11-08T12:30:45.280Z"
+        },
+        {
+            "id": 2,
+            "type": "household",
+            "noOfReadings": 2,
+            "faultTolerance": 2,
+            "perUnitRate": 5,
+            "isDeleted": false,
+            "createdAt": "2022-11-08T12:31:48.510Z",
+            "updatedAt": "2022-11-08T12:31:48.510Z"
+        }
+    ],
+    "error": null
+}
+
+get devices
+{
+    "data": [
+        {
+            "id": 1,
+            "type": 1,
+            "meterCondition": "working",
+            "status": "in use",
+            "isDeleted": false,
+            "createdAt": "2022-11-09T17:39:05.056Z",
+            "updatedAt": "2022-11-09T17:41:38.032Z"
+        },
+        {
+            "id": 2,
+            "type": 2,
+            "meterCondition": "working",
+            "status": "in use",
+            "isDeleted": false,
+            "createdAt": "2022-11-09T17:39:10.714Z",
+            "updatedAt": "2022-11-09T17:41:38.059Z"
+        }
+    ],
+    "error": null
+}
+
+get assigned meters
+
+    "data": [
+        {
+            "id": 1,
+            "type": 1,
+            "meterCondition": "working",
+            "status": "in use",
+            "isDeleted": false,
+            "createdAt": "2022-11-09T17:39:05.056Z",
+            "updatedAt": "2022-11-09T17:41:38.032Z"
+        },
+        {
+            "id": 2,
+            "type": 2,
+            "meterCondition": "working",
+            "status": "in use",
+            "isDeleted": false,
+            "createdAt": "2022-11-09T17:39:10.714Z",
+            "updatedAt": "2022-11-09T17:41:38.059Z"
+        }
+    ],
+    "error": null
+}
+
+get unassigned customers
+
+    "data": [
+        {
+            "id": 2,
+            "name": "finserv",
+            "email": "finserv@gmail.com",
+            "address": "viman nagar",
+            "deviceAssigned": true,
+            "userAssigned": false,
+            "isDeleted": false,
+            "createdAt": "2022-11-09T16:57:40.666Z",
+            "updatedAt": "2022-11-09T17:59:32.173Z"
+        }
+    ],
+    "error": null
+}
