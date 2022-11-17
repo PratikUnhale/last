@@ -20,7 +20,8 @@ class PaginatedTable extends React.Component<any, any>{
             pagenumber: 1,
             rowData: [],
             isNext: true,
-            isPrev: false
+            isPrev: false,
+            totalCount: 0
         }
 
 
@@ -28,10 +29,13 @@ class PaginatedTable extends React.Component<any, any>{
 
     async componentDidMount() {
         const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`)
+        console.log(response)
         this.setState({
             rowData: response.data.data.data,
             isNext: response.data.data.next == 'true' ? true : false,
-            isPrev: response.data.data.prev == 'true' ? true : false
+            isPrev: response.data.data.prev == 'true' ? true : false,
+            totalCount: response.data.data.total
+
         })
     }
 
@@ -43,7 +47,8 @@ class PaginatedTable extends React.Component<any, any>{
             this.setState({
                 rowData: response.data.data.data,
                 isNext: response.data.data.next == 'true' ? true : false,
-                isPrev: response.data.data.prev == 'true' ? true : false
+                isPrev: response.data.data.prev == 'true' ? true : false,
+                totalCount: response.data.data.total
             })
         } else if (prevState.pagenumber !== this.state.pagenumber) {
             const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`)
@@ -51,7 +56,8 @@ class PaginatedTable extends React.Component<any, any>{
             this.setState({
                 rowData: response.data.data.data,
                 isNext: response.data.data.next == 'true' ? true : false,
-                isPrev: response.data.data.prev == 'true' ? true : false
+                isPrev: response.data.data.prev == 'true' ? true : false,
+                totalCount: response.data.data.total
             })
         }
     }
@@ -96,7 +102,7 @@ class PaginatedTable extends React.Component<any, any>{
                 <TablePagination
                     component="div"
                     rowsPerPageOptions={[5, 10, 15, 20, 25]}
-                    count={24}
+                    count={this.state.totalCount}
                     rowsPerPage={this.state.limit}
                     page={this.state.pagenumber - 1}
                     onPageChange={(event: unknown, newPage: number) => { this.setState({ pagenumber: newPage + 1 }) }}
