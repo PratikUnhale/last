@@ -47,7 +47,7 @@ class Login extends React.Component<any, any>{
 
         }
         catch (e: any) {
-            // console.log(e.response.data.error.message)
+            // console.log(e.response)
             this.toggleSnackbar(true, e.response.data.error.message)
         }
     }

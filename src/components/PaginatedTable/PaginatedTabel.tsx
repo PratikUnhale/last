@@ -6,15 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import { feeder } from "../../test";
 import { TablePagination } from "@mui/material";
 import axios from "../../services/axios.instance";
 
-
-
-/*
-localhost:4000/series/filtered?filter={}&limit=1&pagenumber=1&sort={}
-*/
 
 class PaginatedTable extends React.Component<any, any>{
 
@@ -24,31 +18,48 @@ class PaginatedTable extends React.Component<any, any>{
         this.state = {
             limit: 5,
             pagenumber: 1,
-            rowData: []
+            rowData: [],
+            isNext: true,
+            isPrev: false
         }
 
 
     }
 
-
-
     async componentDidMount() {
-        const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`);
-        this.setState({ rowData: response.data.data })
+        const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`)
+        this.setState({
+            rowData: response.data.data.data,
+            isNext: response.data.data.next == 'true' ? true : false,
+            isPrev: response.data.data.prev == 'true' ? true : false
+        })
     }
+
+
     async componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        if (prevState !== this.state) {
-            const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`);
-            this.setState({ rowData: response.data.data })
+        if (prevState.limit !== this.state.limit) {
+            const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`)
+
+            this.setState({
+                rowData: response.data.data.data,
+                isNext: response.data.data.next == 'true' ? true : false,
+                isPrev: response.data.data.prev == 'true' ? true : false
+            })
+        } else if (prevState.pagenumber !== this.state.pagenumber) {
+            const response = await axios.get(`series/filtered?filter={}&limit=${this.state.limit}&pagenumber=${this.state.pagenumber}&sort={}`)
+
+            this.setState({
+                rowData: response.data.data.data,
+                isNext: response.data.data.next == 'true' ? true : false,
+                isPrev: response.data.data.prev == 'true' ? true : false
+            })
         }
     }
 
 
 
     render(): React.ReactNode {
-
-        const rows = this.state.rowData
-
+        console.log(this.state)
         return (
 
             <Paper>
@@ -65,8 +76,8 @@ class PaginatedTable extends React.Component<any, any>{
                         </TableHead>
                         <TableBody>
                             <>
-                                {console.log(rows)}
-                                {rows.map((row: any, i: number) => (
+
+                                {this.state.rowData?.map((row: any, i: number) => (
                                     <TableRow
                                         key={`${i}${row.name}`}
                                         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -87,12 +98,12 @@ class PaginatedTable extends React.Component<any, any>{
                     rowsPerPageOptions={[5, 10, 15, 20, 25]}
                     count={24}
                     rowsPerPage={this.state.limit}
-                    page={this.state.pagenumber}
-                    onPageChange={(event: unknown, newPage: number) => { this.setState({ pagenumber: newPage }) }}
+                    page={this.state.pagenumber - 1}
+                    onPageChange={(event: unknown, newPage: number) => { this.setState({ pagenumber: newPage + 1 }) }}
                     onRowsPerPageChange={(event: React.ChangeEvent<HTMLInputElement>) => { this.setState({ limit: event.target.value }) }}
 
-                // nextIconButtonProps={{ disabled: true }}
-                // backIconButtonProps={{ disabled: true }}
+                    nextIconButtonProps={{ disabled: !this.state.isNext }}
+                    backIconButtonProps={{ disabled: !this.state.isPrev }}
                 />
             </Paper>
 
